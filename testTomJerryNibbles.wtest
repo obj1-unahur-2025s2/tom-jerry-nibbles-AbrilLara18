@@ -1,0 +1,85 @@
+import tomJerryNibbles.*
+import ratones.*
+
+describe "Casos de uso parte 1" {
+  test "al inicio, la velocidad máxima de Tom es 10 (su energía es 50)" {
+    assert.equals(10, tom.velocidadMaxima())
+    assert.equals(50, tom.energia())
+  }
+  
+  test "tom come a Jerry, la velocidad máxima pasa a ser  15.2 (su energía es 102)" {
+    tom.comerRaton(jerry)
+    assert.equals(15.2, tom.velocidadMaxima())
+    assert.equals(102, tom.energia())
+  }
+  
+  test "tom hace todo lo mismo que antes y corre 24 metros, entonces su velocidad máxima pasa a ser 14 (su energía es 90)" {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    assert.equals(14, tom.velocidadMaxima())
+    assert.equals(90, tom.energia())
+  }
+  
+  test "tom hace todo lo mismo que antes y come a Nibbles, pasa a tener de velocidad máxima 18.7 (su energía es 137)" {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    assert.equals(18.7, tom.velocidadMaxima())
+    assert.equals(137, tom.energia())
+  }
+  
+  test "tom hace todo lo mismo que antes y Jerry cumple años (3 años de edad), y luego Tom lo vuelve a comer, pasaría a tener 25.9 (su energia es 209) " {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    jerry.cumplirAños()
+    tom.comerRaton(jerry)
+    assert.equals(25.9, tom.velocidadMaxima())
+    assert.equals(209, tom.energia())
+  }
+  
+  test "tom hace todo lo mismo que antes y ademas corre 38 metros su velocidad pasa a ser 24 (su energia es 190)" {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    jerry.cumplirAños()
+    tom.comerRaton(jerry)
+    tom.correr(38)
+    assert.equals(24, tom.velocidadMaxima())
+    assert.equals(190, tom.energia())
+  }
+}
+
+describe "casos de test parte 2" {
+  test "tom come a olivia y  no puede cazar a otro raton que esta a 200 metros " {
+    tom.comerRaton(olivia)
+    assert.notThat(tom.puedeCazar(200))
+  }
+  
+  test "tom caza jerry que esta a 24 metros y su velocidad pasa a ser 14(y su energia es 90) " {
+    tom.cazarA(jerry, 24)
+    assert.equals(14, tom.velocidadMaxima())
+    assert.equals(90, tom.energia())
+  }
+  test "tom corre 25 metros y puede cazar a un raton que esta a 3 metros"{
+    tom.correr(25)
+    assert.that(tom.puedeCazar(3))
+  }
+  test "tom puede cazar a 99 metros" {
+    assert.that(tom.puedeCazar(99))
+  }
+  test"tom no puede cazar a 120 metros"{
+    assert.notThat(tom.puedeCazar(120))
+  }
+}
+
+describe "casos de test parte 3 tom tiene un valor inicial distinto" {
+  method initialize(){
+    tom.comerRaton(jerry)
+    tom.correr(24)
+  }
+  test "tom come a olvia a 20 metros y su energia es 112 " {
+    tom.cazarA(olivia, 20)
+    assert.equals(112, tom.energia())
+  }
+}

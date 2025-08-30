@@ -23,4 +23,5 @@ object tom {
         self.comerRaton(presa)
         }
     }
+    method energia() =energia
 }
